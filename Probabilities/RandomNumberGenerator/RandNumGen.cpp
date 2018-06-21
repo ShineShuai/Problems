@@ -2,6 +2,16 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
+/********************************************************************
+1. Consider a random function f() that returns 0 with a probability of 60% and
+   1 with a probability of 40%.
+   Implement a function g() using f() such that g() returns 0 and 1 with a
+   probability of 50%.
+2. Write a function to generate a random integer between 0 and 4, given a
+   function that generates a random integer between 0 and 2; namely, implement
+   rand5() using rand3().
+   Conversely, implement rand3() using rand5().
+********************************************************************/
 
 // return 1 with the probability of x%; 0 with 1-x%
 unsigned int rand2(int x) {
@@ -9,7 +19,7 @@ unsigned int rand2(int x) {
     return static_cast<unsigned int>(y < x);
 }
 
-// uniform randomly return 0 or 1
+// return 0 or 1 uniformly at random
 unsigned int rand2() {
     // The probabilities of generating "10" and "01" are same: 0.4*0.6 = 0.6*0.4.
     // So use those to generate 0 and 1, remove the possibilities of "00" and "11".
@@ -22,12 +32,12 @@ unsigned int rand2() {
     }
 }
 
-// uniformly generate an integer between 0 and 2.
+// uniformly and randomly generate an integer between 0 and 2.
 unsigned int rand3() {
     return rand() % 3;
 }
 
-// uniformly generate an integer between 0 and 5.
+// uniformly and randomly generate an integer between 0 and 5.
 unsigned int rand5() {
     return rand() % 5;
 }
@@ -36,7 +46,7 @@ unsigned int rand5() {
 unsigned int rand3to5() {
     unsigned int res = 0;
     while (true) {
-        // Use a base of 3 to generate a number which uniformly distribute in a larger range.
+        // Use a base of 3 to generate a number which evenly distribute in a larger range.
         res = 3 * rand3() + rand3();
         if (res < 5) {
             return res;

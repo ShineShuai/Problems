@@ -16,3 +16,12 @@ What is the probability of that the only 1 black ball remains in the bucket?
 2. Write a function to generate a random integer between 0 and 4, given a function that generates a random integer between 0 and 2; namely, implement rand5() using rand3().
 
  Conversely, implement rand3() using rand5().
+
+
+##### Problem 3 : Reservoir Sampling
+
+Imagine a really large stream of data elements. The size of the stream is unknown in advanced and the indices of data elements are not available. Assume that the stream is accessible only once. How to efficiently return a random sample of m elements evenly distributed from the original stream?
+
+##### Problem 4 : Shuffling
+
+Given an array, provide a method that randomly and efficiently shuffles the elements of the array.
