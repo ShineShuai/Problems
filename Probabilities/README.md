@@ -1,6 +1,6 @@
 Here contains some problems related to the probabilites.
 
-##### Problem 1 : Black/White balls
+##### Problem 1 : Black/White Balls
 
 There are 100 white balls and 100 black balls in a bucket. Repeat the following actions:
 - Randomly take 2 balls out from the bucket every time.
