@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/${fileDirnameBasename}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,        // Opens a separate Terminal window or not
+            "MIMode": "lldb",
+            "preLaunchTask": "C/C++: clang build active subfolder"  // Automatically builds before debugging
+        }
+    ],
+    "version": "2.0.0"
+}
