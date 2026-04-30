@@ -1,0 +1,18 @@
+name: Code Quality Checks
+
+on: [push, pull_request]
+
+jobs:
+  clang-format:
+    name: Run clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+        # This checks out your code AND .clang-format to the workspace
+
+      - name: Run clang-format lint
+        uses: DoozyX/clang-format-lint-action@v0.20
+        with:
+          clangFormatVersion: 20
+          # It automatically finds .clang-format in the repo root
