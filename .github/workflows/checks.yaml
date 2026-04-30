@@ -14,5 +14,6 @@ jobs:
       - name: Run clang-format lint
         uses: DoozyX/clang-format-lint-action@v0.20
         with:
+          source: 'Algorithms'
           clangFormatVersion: 20
           # It automatically finds .clang-format in the repo root
