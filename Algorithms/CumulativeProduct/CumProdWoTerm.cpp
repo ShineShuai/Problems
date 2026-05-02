@@ -1,7 +1,8 @@
-#include <stdlib.h> /* srand, rand */
-#include <time.h>   /* time */
-
+#include <algorithm>
+#include <cstdlib>
 #include <iostream>
+#include <random>
+#include <vector>
 
 /********************************************************************
  Given an array a[1..n], construct an array b[1..n] in O(n) time and
@@ -9,25 +10,25 @@
  The division operator is not available.
 ********************************************************************/
 
-int
-main() {
-  /* initialize random seed: */
-  srand(time(NULL));
+auto
+main() -> int {  // NOLINT(bugprone-exception-escape)
 
-  const int N = 10;  // the number of elements in an array, with N>0
+  constexpr int N = 10;  // the number of elements in an array, with N>0
 
-  bool once     = false;  // test the computation only once or multiple times.
-  int  test_num = once ? 1 : 1000;  // the number of computation tests.
+  constexpr bool once =
+      true;  // test the computation only once or multiple times.
+  constexpr int test_num = once ? 1 : 1000;  // the number of computation tests.
+
+  std::mt19937 rng(std::random_device {}());
+  // random int [1, 80], overflow if average > 80 in the case of N=10.
+  std::uniform_int_distribution<long int> dist(1, 80);
 
   for (int j = 0; j < test_num; j++) {
-    long int in[N];  // an array initilized with [0..N-1].
-    for (int i = 0; i < N; i++) {
-      in[i] = rand() % 80 + 1;
-    }
+    // an array initilized with [0..N-1].
+    std::vector<long int> in(N);
+    std::ranges::generate(in, [&]() -> long int { return dist(rng); });
 
-    // long int in[] = {81, 98, 90, 94, 78, 96, 70, 92, 98, 83}; // overflow if
-    // average > 80 in the case of N=10.
-    long int out[N];
+    std::vector<long int> out(N);
 
     // cumulative product from the left. left[i]=a[1]*..*a[i-1]
     out[0] = in[0];

@@ -2,6 +2,13 @@ This repo contains some problems concerning probabilities, algorithms, data stru
 
 vscode tested on mac OS.
 
+# Requirements
+
+```bash
+brew install llvm
+brew install cmake
+```
+
 # static checks
 
 ## C/C++
