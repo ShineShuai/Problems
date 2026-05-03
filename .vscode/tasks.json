@@ -24,12 +24,9 @@
             "type": "shell",
             "command": "cmake",
             "args": [
-                "--build",
-                "${workspaceFolder}/build",
-                "--target",
-                "${fileDirnameBasename}",
-                "--config",
-                "Debug",
+                "--build", "${workspaceFolder}/build",
+                "--target", "${fileDirnameBasename}",
+                "--config", "Debug",
                 "-j4"
             ],
             "dependsOn": [
@@ -46,6 +43,46 @@
                 "reveal": "always", // Shows full output
                 "panel": "shared"
             }
+        },
+        {
+            "label": "CMake: Build Tests",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "${workspaceFolder}/build",
+                "--target", "cpptests",
+                "--config", "Debug",
+                "-j4"
+            ],
+            "dependsOn": ["CMake: Configure"],
+            "group": { "kind": "build", "isDefault": false },
+            "problemMatcher": ["$gcc"],
+            "presentation": { "reveal": "always", "panel": "shared" }
+        },
+        {
+            "label": "Run All Tests",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--test-dir", "${workspaceFolder}/build",
+                "--output-on-failure"
+            ],
+            "dependsOn": ["CMake: Build Tests"],
+            "group": "test",
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Current Test",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--test-dir", "${workspaceFolder}/build",
+                "-R", "${fileBasenameNoExtension}",
+                "--output-on-failure"
+            ],
+            "dependsOn": ["CMake: Build Tests"],
+            "group": "test",
+            "problemMatcher": []
         }
     ]
 }

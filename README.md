@@ -20,3 +20,22 @@ brew install cmake
 ## C/C++
 
 > .clang-format
+
+# Build
+
+```bash
+cmake -S . -B build
+cmake -B build
+# or
+cmake --build build --target cpptests
+```
+
+# Run & Test
+
+```bash
+ctest --test-dir build --output-on-failure
+# or
+build/tests/cpptests
+# or
+ctest --test-dir build -R cpptests --output-on-failure
+```
