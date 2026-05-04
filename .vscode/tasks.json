@@ -74,7 +74,7 @@
         {
             "label": "Run Current Test",
             "type": "shell",
-            "command": "ctest",
+            "command": "${workspaceFolder}/build/tests/cpptests",
             "args": [
                 "--test-dir", "${workspaceFolder}/build",
                 "-R", "${fileBasenameNoExtension}",

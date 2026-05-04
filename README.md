@@ -26,16 +26,20 @@ brew install cmake
 ```bash
 cmake -S . -B build
 cmake -B build
-# or
+# or only build tests
 cmake --build build --target cpptests
 ```
 
 # Run & Test
 
+## CMake's test runner
 ```bash
 ctest --test-dir build --output-on-failure
 # or
-build/tests/cpptests
-# or
 ctest --test-dir build -R cpptests --output-on-failure
+```
+
+## compiled test
+```bash
+build/tests/cpptests
 ```
