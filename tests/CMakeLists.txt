@@ -5,9 +5,15 @@ add_executable(${TARGET_NAME} Tests.cpp)
 # Link Boost.UT — try lowercase if the alias doesn't work
 # Use SYSTEM to suppress warnings from Boost.UT headers
 if(TARGET boost::ut)
-    target_link_libraries(${TARGET_NAME} PRIVATE SYSTEM boost::ut)
+    target_link_libraries(${TARGET_NAME} PRIVATE boost::ut)
+    target_include_directories(${TARGET_NAME} SYSTEM PRIVATE
+        $<TARGET_PROPERTY:boost::ut,INTERFACE_INCLUDE_DIRECTORIES>
+    )
 elseif(TARGET Boost::ut)
-    target_link_libraries(${TARGET_NAME} PRIVATE SYSTEM Boost::ut)
+    target_link_libraries(${TARGET_NAME} PRIVATE Boost::ut)
+    target_include_directories(${TARGET_NAME} SYSTEM PRIVATE
+        $<TARGET_PROPERTY:Boost::ut,INTERFACE_INCLUDE_DIRECTORIES>
+    )
 else()
     message(FATAL_ERROR "Boost.UT target not found. Check FetchContent.")
 endif()
@@ -29,7 +35,7 @@ foreach(test_file ${TEST_FILES})
     
     if(TARGET ${lib_name})
         # SYSTEM the same style is used for the same target
-        target_link_libraries(${TARGET_NAME} PRIVATE SYSTEM ${lib_name})
+        target_link_libraries(${TARGET_NAME} PRIVATE ${lib_name})
     endif()
 
     target_include_directories(${TARGET_NAME} PRIVATE "${file_dir}")
