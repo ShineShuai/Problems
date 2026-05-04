@@ -3,6 +3,7 @@ set(TARGET_NAME cpptests)
 add_executable(${TARGET_NAME} Tests.cpp)
 
 # Link Boost.UT — try lowercase if the alias doesn't work
+# Use SYSTEM to suppress warnings from Boost.UT headers
 if(TARGET boost::ut)
     target_link_libraries(${TARGET_NAME} SYSTEM PRIVATE boost::ut)
 elseif(TARGET Boost::ut)
@@ -27,7 +28,8 @@ foreach(test_file ${TEST_FILES})
     set(lib_name ${folder_name}Lib)
     
     if(TARGET ${lib_name})
-        target_link_libraries(${TARGET_NAME} PRIVATE ${lib_name})
+        # SYSTEM the same style is used for the same target
+        target_link_libraries(${TARGET_NAME} SYSTEM PRIVATE ${lib_name})
     endif()
 
     target_include_directories(${TARGET_NAME} PRIVATE "${file_dir}")
