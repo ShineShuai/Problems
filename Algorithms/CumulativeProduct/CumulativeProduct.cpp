@@ -1,7 +1,7 @@
 #include <algorithm>
-#include <cstdlib>
 #include <iostream>
 #include <random>
+#include <ranges>
 #include <vector>
 
 #include "CumProdWoTerm.hpp"
@@ -12,75 +12,49 @@
  The division operator is not available.
 ********************************************************************/
 
+namespace {
+
+  void
+  PrintVec(std::string_view label, const std::vector<long long> &v) {
+    std::cout << label << " : ";
+    for (const auto x : v) std::cout << x << ' ';
+    std::cout << '\n';
+  }
+
+}  // namespace
+
 auto
-main() -> int {  // NOLINT(bugprone-exception-escape)
-  // the number of elements in an array, with N>0
-  constexpr int N = 10;
-  // test the computation only once or multiple times.
-  constexpr bool Once = true;
-  constexpr int  Num  = Once ? 1 : 1000;  // the number of computation tests.
+main() -> int {               // NOLINT(bugprone-exception-escape)
+  constexpr int N    = 10;    // number of elements, N > 0
+  constexpr int Runs = 1000;  // set to 1 for single-run display mode
 
   std::mt19937 rng(std::random_device {}());
   // random int [1, 80], overflow if average > 80 in the case of N=10.
   std::uniform_int_distribution<long long> dist(1, 80);
 
-  for (int j = 0; j < Num; j++) {
+  for (int j = 0; j < Runs; j++) {
     // an array initilized with [0..N-1].
     std::vector<long long> in(N);
     std::ranges::generate(in, [&]() -> long long { return dist(rng); });
 
     std::vector<long long> out { CumProdWoTerm(in) };
 
-    long long tmp = 1;
-    for (int i = 0; i < N; i++) {
-      tmp *= in[i];
-    }
+    long long total =
+        std::accumulate(in.begin(), in.end(), 1LL, std::multiplies<>());
+    std::vector<long long> expected(N);
+    std::ranges::transform(in, expected.begin(),
+                           [&](long long x) { return total / x; });
 
-    if (Once) {  // test the computation only once.
-      // display the results using the division operator.
-      std::cout << "input : ";
-      for (int i = 0; i < N; i++) {
-        std::cout << in[i] << " ";
-      }
-      std::cout << "\n";
+    const bool correct = std::ranges::equal(out, expected);
 
-      std::cout << "w. div : ";
-      for (int i = 0; i < N; i++) {
-        std::cout << tmp / in[i] << " ";
-      }
-      std::cout << "\n";
-
-      // display the results without using division.
-      std::cout << "w/o div : ";
-      for (int i = 0; i < N; i++) {
-        std::cout << out[i] << " ";
-      }
-      std::cout << "\n";
-
-    } else {  // test the compuatation multiple times
-      bool wrong = false;
-
-      for (int i = 0; i < N; i++) {
-        if (tmp / in[i] != out[i]) {
-          wrong = true;
-        }
-      }
-
-      if (wrong) {
-        std::cout << "input : ";
-        for (int i = 0; i < N; i++) {
-          std::cout << in[i] << " ";
-        }
-        std::cout << "==> " << tmp << "\n";
-
-        tmp = 1;
-        std::cout << "multiple : ";
-        for (int i = 0; i < N; i++) {
-          tmp *= in[i];
-          std::cout << tmp << " ";
-        }
-        std::cout << "==> " << tmp << "\n";
-      }
+    if (Runs == 1 && correct) {
+      PrintVec("input  ", in);
+      PrintVec("w.  div", expected);
+      PrintVec("w/o div", out);
+    } else if (!correct) {
+      PrintVec("FAIL input   ", in);
+      PrintVec("FAIL expected", expected);
+      PrintVec("FAIL got     ", out);
     }
   }
 }

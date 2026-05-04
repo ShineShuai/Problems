@@ -8,31 +8,25 @@
 
 std::vector<long long>
 CumProdWoTerm(const std::vector<long long> &in) {
-  const int              N = in.size();
-  std::vector<long long> out(N);
+  const auto             N = std::ssize(in);  // ptrdiff_t, signed
+  std::vector<long long> out(N, 1);
 
   if (N == 0) {
-    return out;
-  } else if (N == 1) {
-    out[0] = 1;
     return out;
   }
 
   // cumulative product from the left. left[i]=a[1]*..*a[i-1]
-  out[0] = in[0];
-  for (int i = 1; i < N - 1; i++) {
-    out[i] = out[i - 1] * in[i];
+  for (auto i = 1; i < N; i++) {
+    out[i] = out[i - 1] * in[i - 1];
   }
-  out[N - 1] = N > 1 ? out[N - 2] : 1;
 
   // cumulative product from the right. right[i]=a[i+1]*..*a[n]
   // multiple both terms to get b[i]=left[i]*right[i]
-  long long tmp = in[N - 1];
-  for (int i = N - 2; i > 0; i--) {
-    out[i] = out[i - 1] * tmp;
+  long long tmp = 1;
+  for (auto i = N - 1; i >= 0; i--) {
+    out[i] *= tmp;
     tmp *= in[i];
   }
-  out[0] = tmp;
 
   return out;
 }
