@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.16)
 
-# Compiler (clang++)
-set(CMAKE_CXX_COMPILER "/usr/local/opt/llvm/bin/clang++")
-
 project(Problems LANGUAGES CXX)
 
 # C++20
