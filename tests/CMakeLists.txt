@@ -4,9 +4,9 @@ add_executable(${TARGET_NAME} Tests.cpp)
 
 # Link Boost.UT — try lowercase if the alias doesn't work
 if(TARGET boost::ut)
-    target_link_libraries(${TARGET_NAME} PRIVATE boost::ut)
+    target_link_libraries(${TARGET_NAME} SYSTEM PRIVATE boost::ut)
 elseif(TARGET Boost::ut)
-    target_link_libraries(${TARGET_NAME} PRIVATE Boost::ut)
+    target_link_libraries(${TARGET_NAME} SYSTEM PRIVATE Boost::ut)
 else()
     message(FATAL_ERROR "Boost.UT target not found. Check FetchContent.")
 endif()
