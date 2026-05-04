@@ -1,6 +1,6 @@
 set(TARGET_NAME cpptests)
 # Single test executable for ALL tests
-add_executable(${TARGET_NAME} TestsMain.cpp)
+add_executable(${TARGET_NAME} Tests.cpp)
 
 # Link Boost.UT — try lowercase if the alias doesn't work
 if(TARGET boost::ut)
