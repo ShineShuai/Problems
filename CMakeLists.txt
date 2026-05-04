@@ -11,7 +11,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS OFF)
 
 # Compiler flags for color diagnostics and debug/release builds
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fansi-escape-codes")
+# Compiler flags — Clang only
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    # cosmetic flags for better diagnostics
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fcolor-diagnostics -fansi-escape-codes")
+endif()
 set(CMAKE_CXX_FLAGS_DEBUG "-g3")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2 -DNDEBUG")
 

@@ -5,6 +5,7 @@ vscode tested on mac OS.
 # Requirements
 
 ```bash
+# llvm (clang) is only for mac OS, while CI runner uses GCC under Linux.
 brew install llvm
 brew install cmake
 ```
