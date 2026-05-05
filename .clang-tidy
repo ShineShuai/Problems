@@ -9,7 +9,7 @@ Checks: '-*,
         cppcoreguidelines-*,
         -cppcoreguidelines-pro-bounds-avoid-unchecked-container-access,
         -cppcoreguidelines-avoid-magic-numbers'
-WarningsAsErrors: true
+WarningsAsErrors: '*'
 HeaderFilterRegex: '.*'
 ExtraArgs: [
   '-std=c++20',
