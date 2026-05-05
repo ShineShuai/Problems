@@ -5,6 +5,8 @@
 namespace ut = boost::ut;
 
 // Boost.UT uses global variables and non-constexpr constructors
+// NOLINTBEGIN(bugprone-throwing-static-initialization,
+// cppcoreguidelines-avoid-non-const-global-variables)
 ut::suite<"CumProdWoTerm"> cum_prod_wo_term = []() -> void {
   using namespace ut;
 
@@ -36,3 +38,5 @@ ut::suite<"CumProdWoTerm"> cum_prod_wo_term = []() -> void {
     expect(result[2] == 6_ll);
   };
 };
+// NOLINTEND(bugprone-throwing-static-initialization,
+// cppcoreguidelines-avoid-non-const-global-variables)
