@@ -4,10 +4,10 @@
 
 namespace ut = boost::ut;
 
-// Each algorithm gets its own test suite
-ut::suite<"CumProdWoTerm"> cum_prod_wo_term =
-    []() -> void {  // NOLINT(bugprone-throwing-static-initialization,
-                    // cppcoreguidelines-avoid-non-const-global-variables)
+// Boost.UT uses global variables and non-constexpr constructors
+// NOLINTBEGIN(bugprone-throwing-static-initialization,
+// cppcoreguidelines-avoid-non-const-global-variables)
+ut::suite<"CumProdWoTerm"> cum_prod_wo_term = []() -> void {
   using namespace ut;
 
   "empty_input"_test = []() -> void {
@@ -38,3 +38,5 @@ ut::suite<"CumProdWoTerm"> cum_prod_wo_term =
     expect(result[2] == 6_ll);
   };
 };
+// NOLINTEND(bugprone-throwing-static-initialization,
+// cppcoreguidelines-avoid-non-const-global-variables)
