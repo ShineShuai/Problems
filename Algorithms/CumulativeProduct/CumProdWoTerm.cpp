@@ -6,8 +6,8 @@
  The division operator is not available.
 ********************************************************************/
 
-std::vector<long long>
-CumProdWoTerm(const std::vector<long long> &in) {
+auto
+CumProdWoTerm(const std::vector<long long> &in) -> std::vector<long long> {
   const auto             N = std::ssize(in);  // ptrdiff_t, signed
   std::vector<long long> out(N, 1);
 

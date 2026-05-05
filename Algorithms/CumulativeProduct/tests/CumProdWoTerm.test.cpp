@@ -5,30 +5,32 @@
 namespace ut = boost::ut;
 
 // Each algorithm gets its own test suite
-ut::suite<"CumProdWoTerm"> cum_prod_wo_term = [] {
+ut::suite<"CumProdWoTerm"> cum_prod_wo_term =
+    []() -> void {  // NOLINT(bugprone-throwing-static-initialization,
+                    // cppcoreguidelines-avoid-non-const-global-variables)
   using namespace ut;
 
-  "empty_input"_test = [] {
+  "empty_input"_test = []() -> void {
     std::vector<long long> in {};
     auto                   result = CumProdWoTerm(in);
     expect(result.empty());
   };
 
-  "single_element"_test = [] {
+  "single_element"_test = []() -> void {
     std::vector<long long> in { 5 };
     auto                   result = CumProdWoTerm(in);
     expect(result.size() == 1_u);
     expect(result[0] == 1_ll);
   };
 
-  "two_elements"_test = [] {
+  "two_elements"_test = []() -> void {
     std::vector<long long> in { 2, 3 };
     auto                   result = CumProdWoTerm(in);
     expect(result[0] == 3_ll);
     expect(result[1] == 2_ll);
   };
 
-  "three_elements"_test = [] {
+  "three_elements"_test = []() -> void {
     std::vector<long long> in { 2, 3, 4 };
     auto                   result = CumProdWoTerm(in);
     expect(result[0] == 12_ll);

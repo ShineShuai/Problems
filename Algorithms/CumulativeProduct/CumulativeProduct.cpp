@@ -17,7 +17,9 @@ namespace {
   void
   PrintVec(std::string_view label, const std::vector<long long> &v) {
     std::cout << label << " : ";
-    for (const auto x : v) std::cout << x << ' ';
+    for (const auto x : v) {
+      std::cout << x << ' ';
+    }
     std::cout << '\n';
   }
 
@@ -43,7 +45,7 @@ main() -> int {               // NOLINT(bugprone-exception-escape)
         std::accumulate(in.begin(), in.end(), 1LL, std::multiplies<>());
     std::vector<long long> expected(N);
     std::ranges::transform(in, expected.begin(),
-                           [&](long long x) { return total / x; });
+                           [&](long long x) -> long long { return total / x; });
 
     const bool correct = std::ranges::equal(out, expected);
 
